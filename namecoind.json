@@ -1,0 +1,7 @@
+{"name":"Mitchell Perilstein","email":"mitchell.perilstein@gmail.com","website":"https://mnp.github.io",
+ "gpg" : {
+ "v": "pka1",
+ "fpr": "3dd7 a2e8 13e7 c09a 400a  152c b869 e17b 71e9 b43c",
+	 "uri":"http://hkps.pool.sks-keyservers.net/pks/lookup?op=vindex&fingerprint=on&search=0xB869E17B71E9B43C"
+ }
+}
