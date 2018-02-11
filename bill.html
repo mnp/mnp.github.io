@@ -30,9 +30,7 @@
       }
 
       function setup() {
-          var box = document.getElementById('lookfor');
-       //   box.value = "";
-          box.onkeypress = function(e) {
+      document.getElementById('lookfor').onkeypress = function(e) {
               if (!e) e = window.event;
               var keyCode = e.keyCode || e.which;
               if (keyCode == '13') {      // Enter pressed
