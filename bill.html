@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>search</Title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
+    <style type="text/css">
+      input[type="text"], button
+      {
+          font-size:24px;
+      }
+     </style>
+
+    <script type="text/javascript">
+      function search() {
+          var sign = document.getElementById("lookfor").value
+          var aslurl = "http://asluniversity.com/asl101/pages-signs/" + sign[0] + "/" + sign + ".htm";
+          window.location.href = aslurl;
+      }
+
+      function setup() {
+          document.getElementById('lookfor').onkeypress = function(e) {
+              if (!e) e = window.event;
+              var keyCode = e.keyCode || e.which;
+              if (keyCode == '13') {      // Enter pressed
+                  search();
+              }
+          }
+      }
+    </script>
+  </head>
+  <body onLoad="setup();">
+    <input id="lookfor" type="text"  placeholder="look for sign"></input>
+    <button id="searchbtn" onclick="search()">search</button> 
+</body>
+</html>
