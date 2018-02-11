@@ -30,7 +30,9 @@
       }
 
       function setup() {
-          document.getElementById('lookfor').onkeypress = function(e) {
+          var box = document.getElementById('lookfor');
+       //   box.value = "";
+          box.onkeypress = function(e) {
               if (!e) e = window.event;
               var keyCode = e.keyCode || e.which;
               if (keyCode == '13') {      // Enter pressed
@@ -38,11 +40,12 @@
               }
           }
       }
+
     </script>
   </head>
   <body onLoad="setup();">
       <div class=container>
-	<input id="lookfor" type="text" placeholder="ASL sign"></input>
+	<input id="lookfor" type="text" onfocus="this.value='';" placeholder="ASL sign"></input>
       </div>
 </body>
 </html>
