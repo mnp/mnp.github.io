@@ -6,19 +6,21 @@
     <meta content="utf-8" http-equiv="encoding">
 
     <style type="text/css">
-      .parent {
-          position: relative;
+      div.container {
+          height: 10em;
+          position: relative 
       }
-
-      input[type="text"]
-      {
+      div.container input {
           font-size: 2em;
+          margin: 0;
+          background: #69db9e;
           position: absolute;
           top: 50%;
           left: 50%;
-          transform: translate(-50%, -50%);
+          margin-right: -50%;
+          transform: translate(-50%, -50%) 
       }
-     </style>
+    </style>
 
     <script type="text/javascript">
       function search() {
@@ -39,12 +41,8 @@
     </script>
   </head>
   <body onLoad="setup();">
-    <div id="parent">
-      <input id="lookfor" type="text" placeholder="ASL sign"></input>
-      <!--
-	  <br/>
-	  <button id="searchbtn" onclick="search()">search</button> 
-      -->
-    </div>
+      <div class=container>
+	<input id="lookfor" type="text" placeholder="ASL sign"></input>
+      </div>
 </body>
 </html>
