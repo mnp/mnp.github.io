@@ -6,9 +6,17 @@
     <meta content="utf-8" http-equiv="encoding">
 
     <style type="text/css">
-      input[type="text"], button
+      .parent {
+          position: relative;
+      }
+
+      input[type="text"]
       {
-          font-size: 3em;
+          font-size: 2em;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
       }
      </style>
 
@@ -31,7 +39,12 @@
     </script>
   </head>
   <body onLoad="setup();">
-    <input id="lookfor" type="text"  placeholder="look for sign"></input>
-    <button id="searchbtn" onclick="search()">search</button> 
+    <div id="parent">
+      <input id="lookfor" type="text" placeholder="ASL sign"></input>
+      <!--
+	  <br/>
+	  <button id="searchbtn" onclick="search()">search</button> 
+      -->
+    </div>
 </body>
 </html>
