@@ -6,31 +6,127 @@
     <meta content="utf-8" http-equiv="encoding">
 
     <style type="text/css">
-      div.container {
+      div.searchbox {
           height: 10em;
           position: relative 
       }
-      div.container input {
-          font-size: 2em;
-          margin: 0;
+
+      div.searchbox input {
           background: #69db9e;
           position: absolute;
+          font-size: 2em;
+          margin: 0;
           top: 50%;
           left: 50%;
           margin-right: -50%;
           transform: translate(-50%, -50%) 
       }
+
+      .flex-container {
+          position: relative;
+          align-content: center;
+          left: 25%;
+          width: 50%;
+          display: flex;
+          flex-wrap: wrap;
+      }
+
+      .flex-container > div {
+          margin: 8px;
+          text-align: center;
+          line-height: 75px;
+      }
+
+      .prior {
+          font-size: 1.5em;
+      }
     </style>
 
     <script type="text/javascript">
-      function search() {
-          var sign = document.getElementById("lookfor").value
+      var COOKIE_NAME='prior_searches';
+      var priors;
+      
+      function isEmpty(str) {
+          return (!str || 0 === str.length);
+      }
+
+      if(typeof(String.prototype.trim) === "undefined")
+      {
+          String.prototype.trim = function() 
+          {
+              return String(this).replace(/^\s+|\s+$/g, '');
+          };
+      }
+
+      function setCookie(cname, cvalue) {
+          var d = new Date();
+          var exdays = 2 * 365;
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      function getCookie(cname) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + cname + "=");
+        if (parts.length == 2)
+          return parts.pop().split(";").shift();
+        else
+          return ''
+      }
+
+      function deleteCookie(cname) {
+          document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      };
+
+      function clearPriors() {
+          deleteCookie(COOKIE_NAME);
+          location.reload(true);
+      }
+
+      function goBill(sign) {
           var aslurl = "http://asluniversity.com/asl101/pages-signs/" + sign[0] + "/" + sign + ".htm";
-          window.location.href = aslurl.toLowerCase();
+          window.location.href = aslurl;
+      }
+
+      function search() {
+          var sign = document.getElementById("lookfor").value.trim().toLowerCase();
+          if (isEmpty(sign)) {
+              return;
+          }
+
+          priors.add(sign);
+          setCookie(COOKIE_NAME, Array.from(priors)); 
+          goBill(sign);
+      }
+
+      function add_button(name) {
+          var div = document.getElementById('buttons');
+          var cb = function() {
+              gobill(name);
+          }
+          div.innerHTML += 
+            '<div>' +
+	        '<button class="prior" onClick="goBill(\'' + name + '\')">' + name + '</button>' +
+            '</div>' ;
       }
 
       function setup() {
-      document.getElementById('lookfor').onkeypress = function(e) {
+          var showclear = false;
+          priors = new Set(getCookie(COOKIE_NAME).split(','));
+
+          for (let value of priors) { 
+              if (!isEmpty(value)) {
+                  add_button(value);
+                  showclear = true;
+              }
+          }
+
+          if (showclear) {
+              document.getElementById('clearpriors').style.visibility = "visible";
+          }
+
+          document.getElementById('lookfor').onkeypress = function(e) {
               if (!e) e = window.event;
               var keyCode = e.keyCode || e.which;
               if (keyCode == '13') {      // Enter pressed
@@ -42,8 +138,15 @@
     </script>
   </head>
   <body onLoad="setup();">
-      <div class=container>
+      <div class="searchbox">
 	<input id="lookfor" type="text" onfocus="this.value='';" placeholder="ASL sign"></input>
+      </div>
+
+      <div class="flex-container" id="buttons">
+      </div>
+
+      <div class="flex-container" id="others">
+	<button id='clearpriors' style="visibility: hidden" onClick="clearPriors();">clear all priors</button>
       </div>
 </body>
 </html>
