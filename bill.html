@@ -126,13 +126,15 @@
               document.getElementById('clearpriors').style.visibility = "visible";
           }
 
-          document.getElementById('lookfor').onkeypress = function(e) {
+          var box = document.getElementById('lookfor');
+          box.onkeypress = function(e) {
               if (!e) e = window.event;
               var keyCode = e.keyCode || e.which;
               if (keyCode == '13') {      // Enter pressed
                   search();
               }
           }
+          box.focus();
       }
 
     </script>
